@@ -25,19 +25,21 @@ struct EventData
 {
     std::chrono::time_point<std::chrono::system_clock> eventTime;
     std::string file;
+    std::string function;
     std::string line;
     std::thread::id threadId;
     std::string payload;
 
     friend std::ostream& operator<<(std::ostream& output, const EventData& data)
     {
-        output << "ThreadId: " << data.threadId << " File: " << data.file << " - Line:" << data.line << " Message: " << data.payload << "\n";
+        output << "ThreadId: " << data.threadId << " File: " << data.file << " - Function: " << data.function << " - Line:" << data.line << " Message: " << data.payload << "\n";
         return output;
     }
 
-    EventData(std::chrono::time_point<std::chrono::system_clock> eventTime, std::string file, std::string line, std::thread::id threadId, std::string payload) :
+    EventData(std::chrono::time_point<std::chrono::system_clock> eventTime, std::string file, std::string function, std::string line, std::thread::id threadId, std::string payload) :
         eventTime{ eventTime },
         file{ file },
+        function{ function },
         line{ line }, 
         threadId{ threadId },
         payload{ payload }
@@ -87,12 +89,15 @@ void LogMessageFile(EventCode code, EventData data)
             break;
     }
 }
+void start()
+{
+    EventData data(std::chrono::system_clock::now(),__FILE__, __FUNCTION__, std::to_string(__LINE__), std::this_thread::get_id(), "System starting...");
+    LogMessage(EventCode::SystemStart, data);
+    LogMessageFile(EventCode::SystemStart, data);
+}
 int main()
 {
     // starting the system
-    EventData data(std::chrono::system_clock::now(),__FILE__, std::to_string(__LINE__), std::this_thread::get_id(), "System starting...");
-    LogMessage(EventCode::SystemStart, data);
-    LogMessageFile(EventCode::SystemStart, data);
-
+    start();
     return 0;
 }
