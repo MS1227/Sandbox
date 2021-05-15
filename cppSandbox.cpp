@@ -8,11 +8,7 @@
 #include <fstream>
 
 enum class EventCode
-{
-    System = 0x20000,
-    SystemStart = 0x20001,
-    StateChange = 0x30000,
-};
+{ System = 0x20000, SystemStart = 0x20001, StateChange = 0x30000, };
 
 enum class SeverityLevel
 {
@@ -60,7 +56,7 @@ void LogMessage(EventCode code, EventData data)
             std::cout << "[DEBUG] " << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
             break;
         case SeverityLevel::Info:
-            std::cout << "[INFO] " << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
+            std::cout << "\033[1m\033[32m" << "[INFO] " << "\033[0m" << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
             break;
         default:
             break;
@@ -83,7 +79,7 @@ void LogMessageFile(EventCode code, EventData data)
             outfile << "[DEBUG] " << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
             break;
         case SeverityLevel::Info:
-            outfile << "[INFO] " << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
+            outfile << "\033[1m\033[32m" << "[INFO] " << "\033[0m"  << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
             break;
         default:
             break;
