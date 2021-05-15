@@ -65,7 +65,7 @@ void LogMessage(EventCode code, EventData data)
 
 void LogMessageFile(EventCode code, EventData data)
 {
-    const std::string infoString = "\033[1m\033[32m [INFO] \033[0m";
+    const std::string infoString = "\033[1m\033[32m[INFO] \033[0m";
     std::fstream outfile("logFile.txt", std::ios::out | std::ios::app);
     std::map<EventCode, SeverityLevel> eventSeverityDictionary;
     eventSeverityDictionary[EventCode::SystemStart] = SeverityLevel::Info;
