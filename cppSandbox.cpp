@@ -65,6 +65,7 @@ void LogMessage(EventCode code, EventData data)
 
 void LogMessageFile(EventCode code, EventData data)
 {
+    const std::string infoString = "\033[1m\033[32m [INFO] \033[0m";
     std::fstream outfile("logFile.txt", std::ios::out | std::ios::app);
     std::map<EventCode, SeverityLevel> eventSeverityDictionary;
     eventSeverityDictionary[EventCode::SystemStart] = SeverityLevel::Info;
@@ -79,7 +80,7 @@ void LogMessageFile(EventCode code, EventData data)
             outfile << "[DEBUG] " << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
             break;
         case SeverityLevel::Info:
-            outfile << "\033[1m\033[32m" << "[INFO] " << "\033[0m"  << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
+            outfile << infoString << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
             break;
         default:
             break;
