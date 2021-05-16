@@ -42,11 +42,12 @@ struct EventData
         payload{ payload }
     {}
 
-    std::stringstream Tokenize(std::time_t time, const std::string& levelString)
+    std::stringstream Tokenize(const std::string& levelString)
     {
         std::stringstream tokens;
         
         tokens << "{\n";
+        std::time_t time = std::chrono::system_clock::to_time_t(eventTime);
         tokens << "\t\"time\" : " << "\"" << std::put_time(std::gmtime(&time), "%c %Z") << "\",\n";
         tokens << "\t\"level_string\" : " << "\"" << levelString << "\",\n";
         tokens << "\t\"file\" : " << "\"" << file << "\",\n";
@@ -99,7 +100,7 @@ void LogMessageInJSON(EventCode code, EventData data)
             outfile << "[DEBUG] " << std::put_time(std::gmtime(&loggedTime), "%c %Z") << " - " << data;
             break;
         case SeverityLevel::Info:
-            outfile  << data.Tokenize(loggedTime, infoString).str();
+            outfile  << data.Tokenize(infoString).str();
             break;
         default:
             break;
