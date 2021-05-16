@@ -1,0 +1,18 @@
+{
+	"time" : "Sun May 16 19:00:55 2021 UTC",
+	"level_string" : "[INFO]",
+	"file" : "cppSandbox.cpp",
+	"function" : "start",
+	"line" : "135",
+	"thread_id" : "0x11809e5c0",
+	"payload" : "System starting..."
+}
+{
+	"time" : "Sun May 16 19:01:57 2021 UTC",
+	"level_string" : "[INFO]",
+	"file" : "cppSandbox.cpp",
+	"function" : "start",
+	"line" : "135",
+	"thread_id" : "0x1102825c0",
+	"payload" : "System starting..."
+}
